@@ -19,7 +19,7 @@ import java.util.logging.Logger;
 public class CA1 {
 
     
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException{
         // The program has a menu that lets the user decide between standard operation or adding (validated) data to the status.txt file via the console. (Invalid data should NOT be saved).
         //Asking the user to choose 1-Standart Operation or 2-To add data manually
         System.out.println("Please choose 1 to Standard Operation (use students.text) or 2 to add data to the status.txt file via the console");
@@ -50,30 +50,25 @@ public class CA1 {
         }
     }
     
-    public static void choice1() {
+    public static void choice1() throws FileNotFoundException, IOException {
+        //should i start asking or kknowing how many students there is in the file or just read how many lines there is in the text and just with a loop?
+        //Using BufferedReader to read student.txt. 
+        BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\User\\Documents\\NetBeansProjects\\CA1\\students.txt"));
+ 
+        //System.out.println(br.readLine());
+        String line = br.readLine();
+	while (line != null) {
+            System.out.println(line);
+            // read next line
+            line = br.readLine();
+	}
 
-        BufferedReader myReader = null;
-        try {
-            //Using BufferedReader to read student.txt. 
-            myReader = new BufferedReader (new FileReader("student.txt"));
-            //Read the text and make it into an array
-            String studentsDetails = myReader.readLine();
-            String [] studentsDetailsArray = studentsDetails.split(" ");
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(CA1.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            try {
-                myReader.close();
-            } catch (IOException ex) {
-                Logger.getLogger(CA1.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-        
-       
+	br.close();
+       //Read the text and make it into an array
         
     }
     
     public static void choice2() {
-        
+        System.out.println("Choice 2");
     }
 }
