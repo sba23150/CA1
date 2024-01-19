@@ -51,24 +51,60 @@ public class CA1 {
     }
     
     public static void choice1() throws FileNotFoundException, IOException {
-        //should i start asking or kknowing how many students there is in the file or just read how many lines there is in the text and just with a loop?
         //Using BufferedReader to read student.txt. 
-        BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\User\\Documents\\NetBeansProjects\\CA1\\students.txt"));
- 
-        //System.out.println(br.readLine());
-        String line = br.readLine();
-	while (line != null) {
-            System.out.println(line);
-            // read next line
-            line = br.readLine();
-	}
-
-	br.close();
-       //Read the text and make it into an array
         
-    }
+        try (BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\User\\Documents\\NetBeansProjects\\CA1\\students.txt"))){
+            System.out.println(br.readLine());
+            String line = br.readLine();
+            
+            //Must check if the data is valid
+            while (line != null) {
+                if (studentValidData(line)){
+                    System.out.println(line);
+                    //data is valid, create another txt - usar outro methodo
+                } else{
+                    System.out.println("Invalid data");
+                    //spicify what´s wrong. maybe bring the info from the method
+                }
+            }
+        }catch (IOException e){
+                System.out.println("Error reading file.");
+        }    
+         
+        
+       //Read the text and make it into an array
+        //tem q 'return' algo no final
     
-    public static void choice2() {
-        System.out.println("Choice 2");
+    //method to check if the data in student.txt is valid
+    public static String studentValidData(String line) {
+        //split the line into array
+        String[] lineArray = line.split(" ");
+        
+        //we need at least two students, for each student we have 4 elements/words, therefore, we need at least 8 elements in the array
+        if (lineArray.length <8){
+            System.out.println("Not enough students info. Need at least two students info in the file.");
+            
+        }else{
+            //validate First Name that must be letters only. loop starts 0 and every 4
+            int i=0;
+            for (i=0;i<lineArray.length;i=i+4){
+                if(!lineArray[i].matches("^[a-zA-Z]+$")){
+                    System.out.println("First Name must be letters only.");
+                } else{
+                    String[] firstNameArray = firstNameArray + lineArray[i];
+                }
+            }
+            
+            //validate Second Nname that must be letters only. loop starts 0 and every 4
+            for (i=0;i<lineArray.length;i=i+4){
+                if(!lineArray[i].matches("^[a-zA-Z]+$")){
+                    System.out.println("First Name must be letters only.");
+                }
+            }
+        }
     }
-}
+
+    public static void choice2() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+}    
