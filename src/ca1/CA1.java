@@ -8,6 +8,7 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -86,21 +87,46 @@ public class CA1 {
             
         }else{
             //validate First Name that must be letters only. loop starts 0 and every 4
-            int i=0;
-            for (i=0;i<lineArray.length;i=i+4){
+            
+            for (int i=0;i<lineArray.length;i=i+4){
                 if(!lineArray[i].matches("^[a-zA-Z]+$")){
                     System.out.println("First Name must be letters only.");
                 } else{
-                    String[] firstNameArray = firstNameArray + lineArray[i];
+                    ArrayList<String> firstNameArray = new ArrayList<String>();
+                    firstNameArray.add(lineArray[i]);
                 }
             }
             
-            //validate Second Nname that must be letters only. loop starts 0 and every 4
-            for (i=0;i<lineArray.length;i=i+4){
-                if(!lineArray[i].matches("^[a-zA-Z]+$")){
-                    System.out.println("First Name must be letters only.");
+            //The second name can be letters and/or numbers and must be separated from the first name by a single space; loop starts 1 and every 4
+            for (int i=1;i<lineArray.length;i=i+4){
+                if(!lineArray[i].matches("^[a-zA-Z0-9]+$")){
+                    System.out.println("Second Name must be letters and/or numbers only.");
+                } else{
+                    ArrayList<String> secondNameArray = new ArrayList<String>();
+                    secondNameArray.add(lineArray[i]);
                 }
             }
+            
+            //The number of classes must be an integer value between 1 and 8 (inclusive) 
+            for (int i=2;i<lineArray.length;i=i+4){
+                if(Integer.parseInt(lineArray[i])<1 && Integer.parseInt(lineArray[i])>8){
+                    System.out.println("Number of classes must be an integer value between 1 and 8 (inclusive).");
+                } else{
+                    ArrayList<String> nClassesArray = new ArrayList<String>();
+                    nClassesArray.add(lineArray[i]);
+                }
+            }
+            
+            //The student“number” must be a minimum of 6 characters with the first 2 characters being numbers, the 3rd and 4thcharacters (and possibly 5th) being a letter, and everything after the last letter character being a number.
+            for (int i=3;i<lineArray.length;i=i+4){
+                if(lineArray[i].matches("^\\d{2}[a-zA-Z]{1,2}\\d+$")){
+                    System.out.println("The student“number” must be a minimum of 6 characters with the first 2 characters being numbers, the 3rd and 4thcharacters (and possibly 5th) being a letter, and everything after the last letter character being a number.");
+                } else{
+                    ArrayList<String> studentNumberArray = new ArrayList<String>();
+                    studentNumberArray.add(lineArray[i]);
+                }
+            }            
+            
         }
     }
 
