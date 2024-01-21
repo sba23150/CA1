@@ -10,8 +10,6 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -51,86 +49,76 @@ public class CA1 {
         }
     }
     
-    public static void choice1() throws FileNotFoundException, IOException {
+    public static ArrayList<String> choice1() throws FileNotFoundException, IOException {
         //Using BufferedReader to read student.txt. 
-        
         try (BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\User\\Documents\\NetBeansProjects\\CA1\\students.txt"))){
-            System.out.println(br.readLine());
-            String line = br.readLine();
-            
-            //Must check if the data is valid
-            while (line != null) {
-                if (studentValidData(line)){
-                    System.out.println(line);
-                    //data is valid, create another txt - usar outro methodo
-                } else{
-                    System.out.println("Invalid data");
-                    //spicify what´s wrong. maybe bring the info from the method
+           System.out.println("Read successfully");   
+           
+        //we need at least two students, for each student we have 3 lines or 4 elements/words, therefore, we need at least 6lines or 8 elements in the array
+        // Count the number of lines
+            int lineCount = 0;
+            while (br.readLine() != null) {
+                lineCount++;
+            }
+
+            if (lineCount <6){
+                System.out.println("Not enough students info. Need at least two students info in the file.");
+
+            }else{
+                //validating student.txt
+
+                //reading line with the First and Last Name.
+                for (int i=0;i<lineCount;i=i+3){
+                    String name = br.readLine();
+                    String[] firstLastName = name.split(" ");
+
+                    //separating First of Last Name into two arrays.
+                    ArrayList<String> firstName = new ArrayList<String>();
+                    firstName.add(firstLastName[0]);
+                    ArrayList<String> secondName = new ArrayList<String>();
+                    secondName.add(firstLastName[1]);
+
+                    //validate First Name that must be letters only. 
+                    if(!firstName.get(i).matches("^[a-zA-Z]+$")){
+                        System.out.println("First Name must be letters only.");
+                        }    
+
+                    //The second name can be letters and/or numbers and must be separated from the first name by a single space; loop starts 1 and every 4
+                    if(!secondName.get(i).matches("^[a-zA-Z0-9]+$")){
+                        System.out.println("First Name must be letters and/or numbers only.");
+                    } 
                 }
+
+                //The number of classes must be an integer value between 1 and 8 (inclusive) 
+                for (int i=1;i<lineCount;i=i+3){
+                    String nClasses = br.readLine();
+                    ArrayList<String> numberClasses = new ArrayList<String>();
+                    numberClasses.add(nClasses);
+                    
+                    if(Integer.parseInt(nClasses)<1 && Integer.parseInt(nClasses)>8){
+                        System.out.println("First Name must be letters only.");
+                    } 
+                }
+
+                //The student“number” must be a minimum of 6 characters with the first 2 characters being numbers, the 3rd and 4thcharacters (and possibly 5th) being a letter, and everything after the last letter character being a number.
+                for (int i=2;i<lineCount;i=i+3){
+                    String studentNo = br.readLine();
+                    ArrayList<String> studentNoArray = new ArrayList<String>();
+                    studentNoArray.add(studentNo);
+                    
+                    if(!studentNo.matches("^\\d{2}[a-zA-Z]{1,2}\\d+$")){
+                        System.out.println("The student“number” must be a minimum of 6 characters with the first 2 characters being numbers, the 3rd and 4thcharacters (and possibly 5th) being a letter, and everything after the last letter character being a number.");
+                    } 
+                }
+                
             }
         }catch (IOException e){
-                System.out.println("Error reading file.");
+            System.out.println("Error reading file.");
         }    
-         
-        
-       //Read the text and make it into an array
-        //tem q 'return' algo no final
-    
-    //method to check if the data in student.txt is valid
-    public static String studentValidData(String line) {
-        //split the line into array
-        String[] lineArray = line.split(" ");
-        
-        //we need at least two students, for each student we have 4 elements/words, therefore, we need at least 8 elements in the array
-        if (lineArray.length <8){
-            System.out.println("Not enough students info. Need at least two students info in the file.");
-            
-        }else{
-            //validate First Name that must be letters only. loop starts 0 and every 4
-            
-            for (int i=0;i<lineArray.length;i=i+4){
-                if(!lineArray[i].matches("^[a-zA-Z]+$")){
-                    System.out.println("First Name must be letters only.");
-                } else{
-                    ArrayList<String> firstNameArray = new ArrayList<String>();
-                    firstNameArray.add(lineArray[i]);
-                }
-            }
-            
-            //The second name can be letters and/or numbers and must be separated from the first name by a single space; loop starts 1 and every 4
-            for (int i=1;i<lineArray.length;i=i+4){
-                if(!lineArray[i].matches("^[a-zA-Z0-9]+$")){
-                    System.out.println("Second Name must be letters and/or numbers only.");
-                } else{
-                    ArrayList<String> secondNameArray = new ArrayList<String>();
-                    secondNameArray.add(lineArray[i]);
-                }
-            }
-            
-            //The number of classes must be an integer value between 1 and 8 (inclusive) 
-            for (int i=2;i<lineArray.length;i=i+4){
-                if(Integer.parseInt(lineArray[i])<1 && Integer.parseInt(lineArray[i])>8){
-                    System.out.println("Number of classes must be an integer value between 1 and 8 (inclusive).");
-                } else{
-                    ArrayList<String> nClassesArray = new ArrayList<String>();
-                    nClassesArray.add(lineArray[i]);
-                }
-            }
-            
-            //The student“number” must be a minimum of 6 characters with the first 2 characters being numbers, the 3rd and 4thcharacters (and possibly 5th) being a letter, and everything after the last letter character being a number.
-            for (int i=3;i<lineArray.length;i=i+4){
-                if(lineArray[i].matches("^\\d{2}[a-zA-Z]{1,2}\\d+$")){
-                    System.out.println("The student“number” must be a minimum of 6 characters with the first 2 characters being numbers, the 3rd and 4thcharacters (and possibly 5th) being a letter, and everything after the last letter character being a number.");
-                } else{
-                    ArrayList<String> studentNumberArray = new ArrayList<String>();
-                    studentNumberArray.add(lineArray[i]);
-                }
-            }            
-            
-        }
-    }
+        return null;
+    }     
 
-    public static void choice2() {
+    private static void choice2() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-}    
+}
