@@ -1,15 +1,12 @@
 James Bond
 1
 10AY2324
-
 John Smith
 2
 11AY2324
-
 Anna Johnson
 4
 12AY2324
-
 Mary Louise
 8
 13AY2324
