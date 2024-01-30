@@ -2,9 +2,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
  */
-package ca.test.pkg2;
+package ca1;
 
+import java.io.BufferedWriter;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -13,19 +15,20 @@ import java.util.Scanner;
  *
  * @author Tatiana
  */
-public class CATest2 {
+public class CA1 {
 
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        //create an array list to storage the student.text data
         ArrayList<String> studentsTxtArray = new ArrayList<String>();
+        
         //read students.txt using Scanner
         try {
             Scanner myReader = new Scanner(new FileReader("C:\\Users\\User\\Documents\\NetBeansProjects\\CA1\\students.txt"));
             while (myReader.hasNextLine()) {
                 String studentsTxt = myReader.nextLine();
-                System.out.println(studentsTxt);
                 studentsTxtArray.add(studentsTxt);
             }
         }catch (Exception e){
@@ -50,7 +53,7 @@ public class CATest2 {
                 firstName.add(fullName[0]);
                 secondName.add(fullName[1]);    
             } else {
-                System.out.println("Something went wrong with the name in the line "+ i);
+                System.out.println("Something went wrong with the name in the line "+ i+1);
             }
         }
         
@@ -58,17 +61,15 @@ public class CATest2 {
             
                 //validate First Name that must be letters only. 
                 if(!firstName.get(i).matches("^[a-zA-Z]+$")){
-                    System.out.println("First Name must be letters only.");
+                    System.out.println("First Name must be letters only. Something went wrong with the name in the line "+ (i+1));
                 }
 
                 //The second name can be letters and/or numbers and must be separated from the first name by a single space; loop starts 1 and every 4
                 if(!secondName.get(i).matches("^[a-zA-Z0-9]+$")){
-                    System.out.println("First Name must be letters and/or numbers only.");
+                    System.out.println("Second Name must be letters and/or numbers only. Something went wrong with the name in the line "+ (i+1));
                 }
         }
-        for (int i=0;i<firstName.size();i++){
-            System.out.println(firstName.get(i));
-        }
+        
         
         //c)The number of classes must be an integer value between 1 and 8 (inclusive) 
          //define workload: 
@@ -91,7 +92,7 @@ public class CATest2 {
                 nClasses= "Full Time";
                 workload.add(nClasses);
             } else {
-                System.out.println("Wrong number of classes.");
+                System.out.println("Wrong number of classes. Something went wrong in the line "+ (i+1));
             }
         }        
         
@@ -104,12 +105,28 @@ public class CATest2 {
             if(studentNo.matches("^\\d{2}[a-zA-Z]{1,2}\\d+$")){
                 studentNoArray.add(studentNo);
             } else{
-                System.out.println("The student“number” must be a minimum of 6 characters with the first 2 characters being numbers, the 3rd and 4thcharacters (and possibly 5th) being a letter, and everything after the last letter character being a number.");
+                System.out.println("The student“number” must be a minimum of 6 characters with the first 2 characters being numbers, the 3rd and 4thcharacters (and possibly 5th) being a letter, and everything after the last letter character being a number. Something went wrong in the line "+ (i+1));
             }
         }
         
-                
-                
+        //If the data is valid, then you have to output the data to a file name status.txt,in the following format:
+        // Student number - Second Name
+        //Wordload
+        try {
+            BufferedWriter bw = new BufferedWriter (new FileWriter("status.txt",true));
+            for (int i=0;i<firstName.size();i++){
+                bw.write(studentNoArray.get(i)+" - "+secondName.get(i));
+                bw.newLine();
+                bw.write(workload.get(i));
+                bw.newLine();
+            }
+            bw.close(); // Close the BufferedWriter after writing all data
+            System.out.println("Data written to status.txt successfully.");    
+        }
+        catch (Exception e){
+            System.out.println("Error criating a new File.");
+        }
+               
     }
     
 }
