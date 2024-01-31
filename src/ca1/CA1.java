@@ -33,7 +33,7 @@ public class CA1 {
                     option1();
                     break;
                 case 2:
-                    System.out.println("Option 2 choosen");
+                    option2();
                     break;
                 default:
                     System.out.println("Something went wrong.");
@@ -154,4 +154,25 @@ public class CA1 {
         }
     }
     
+    public static void option2() {
+        System.out.println("Option 2.");
+        //ask how many student to know the size of the data
+        System.out.println("Please type how many students info you will input");
+        BufferedReader myBufReader = new BufferedReader (new InputStreamReader(System.in));
+        try{
+            int numberStudents = Integer.parseInt(myBufReader.readLine());
+            //create a for loop (i=o;i<numberStudents;i++)
+            System.out.println("Please type first name");
+            String firstName = myBufReader.readLine();
+            System.out.println("Please type second name");
+            String secondName = myBufReader.readLine();
+            System.out.println("Please type number of classes");
+            int nClasses = Integer.parseInt(myBufReader.readLine());
+            System.out.println("Please type student number");
+            String studentNumber = myBufReader.readLine();
+            
+        } catch (Exception e){
+            System.out.println("Something went wrong.");
+        }
+    }
 }

@@ -38,3 +38,11 @@ Light
 Part Time
 13AY2324 - Louise
 Full Time
+10AY2324 - Bond
+Very Light
+11AY2324 - Smith
+Light
+12AY2324 - Johnson
+Part Time
+13AY2324 - Louise
+Full Time
