@@ -4,9 +4,11 @@
  */
 package ca1;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -21,12 +23,30 @@ public class CA1 {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        //The program has a menu that lets the user decide between standard operation (option 1) or adding (validated) data to the status.txt file via the console (option 2). 
+        BufferedReader myBufReader = new BufferedReader (new InputStreamReader(System.in));
+        try{
+            System.out.println("Please choose 1 for Standard Operation or 2 to add the data via console");
+            int userOption = Integer.parseInt(myBufReader.readLine());
+            switch(userOption){
+                case 1:
+                    option1();
+                    break;
+                case 2:
+                    System.out.println("Option 2 choosen");
+                    break;
+                default:
+                    System.out.println("Something went wrong.");
+            }
+            
+        } catch (Exception e){
+            System.out.println("Something went wrong.");
+        }
         
-        option1();
                
     }
     
-    static void option1() {
+    public static void option1() {
         //create an array list to storage the student.text data
         ArrayList<String> studentsTxtArray = new ArrayList<String>();
         
