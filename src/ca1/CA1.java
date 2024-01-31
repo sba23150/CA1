@@ -171,25 +171,23 @@ public class CA1 {
             String[] workload = new String[numberStudents];
             String[] studentNumber = new String[numberStudents];
             
-            //read, validate and insert to the new file the console input data 
+            //read and validate the console input data 
             for(int i=0;i<numberStudents;i++){
                 //Read and validate First Name
                 System.out.println("Please type first name");
-                String fName = myBufReader.readLine();
-                while(!fName.matches("^[a-zA-Z]+$")){
+                firstName[i] = myBufReader.readLine();
+                while(!firstName[i].matches("^[a-zA-Z]+$")){
                     System.out.println("First Name must be letters only. Please type first name");
-                    fName = myBufReader.readLine();
+                    firstName[i] = myBufReader.readLine();
                 }
-                //firstName[i] = myBufReader.readLine();
                 
                 //Read and validate Second Name
                 System.out.println("Please type second name");
-                String secName = myBufReader.readLine();
-                while(!secName.matches("^[a-zA-Z0-9]+$")){
+                secondName[i] = myBufReader.readLine();
+                while(!secondName[i].matches("^[a-zA-Z0-9]+$")){
                     System.out.println("Second Name must be letters and/or numbers only. Something went wrong with the name in the line "+ (i+1));
-                    secName = myBufReader.readLine();
+                    secondName[i] = myBufReader.readLine();
                 }
-                //secondName[i] = myBufReader.readLine();
                 
                 //Read and validate Number of Classes
                 System.out.println("Please type number of classes");
@@ -217,12 +215,19 @@ public class CA1 {
                     }
                   
                 
-                //Read and validate Student number
+                //Read and validate Student number - The student“number” must be a minimum of 6 characters with the first 2 characters being numbers, the 3rd and 4thcharacters (and possibly 5th) being a letter, and everything after the last letter character being a number.
                 System.out.println("Please type student number");
                 studentNumber[i] = myBufReader.readLine();
+                while(!studentNumber[i].matches("^\\d{2}[a-zA-Z]{1,2}\\d+$")){
+                    System.out.println("The student“number” must be a minimum of 6 characters with the first 2 characters being numbers, the 3rd and 4thcharacters (and possibly 5th) being a letter, and everything after the last letter character being a number. Please provide student number again.");
+                    studentNumber[i] = myBufReader.readLine();
+                }
+                
+                //insert to the new file 
+            
             }
             
-            //validate later?
+            
             
         } catch (Exception e){
             System.out.println("Something went wrong.");
