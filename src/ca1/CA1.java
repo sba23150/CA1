@@ -161,15 +161,30 @@ public class CA1 {
         BufferedReader myBufReader = new BufferedReader (new InputStreamReader(System.in));
         try{
             int numberStudents = Integer.parseInt(myBufReader.readLine());
-            //create a for loop (i=o;i<numberStudents;i++)
-            System.out.println("Please type first name");
-            String firstName = myBufReader.readLine();
-            System.out.println("Please type second name");
-            String secondName = myBufReader.readLine();
-            System.out.println("Please type number of classes");
-            int nClasses = Integer.parseInt(myBufReader.readLine());
-            System.out.println("Please type student number");
-            String studentNumber = myBufReader.readLine();
+            String[] firstName = new String[numberStudents];
+            String[] secondName = new String[numberStudents];
+            int[] nClasses = new int[numberStudents];
+            String[] studentNumber = new String[numberStudents];
+            
+            //read all the console data first
+            for(int i=0;i<numberStudents;i++){
+                //Read and validate First Name
+                System.out.println("Please type first name");
+                String fName = myBufReader.readLine();
+                while(!firstName[i].matches("^[a-zA-Z]+$")){
+                    System.out.println("First Name must be letters only.Please type first name");
+                }
+                firstName[i] = myBufReader.readLine();
+                
+                System.out.println("Please type second name");
+                secondName[i] = myBufReader.readLine();
+                System.out.println("Please type number of classes");
+                nClasses[i] = Integer.parseInt(myBufReader.readLine());
+                System.out.println("Please type student number");
+                studentNumber[i] = myBufReader.readLine();
+            }
+            
+            //validate later?
             
         } catch (Exception e){
             System.out.println("Something went wrong.");
