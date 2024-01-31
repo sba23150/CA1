@@ -21,6 +21,12 @@ public class CA1 {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        
+        option1();
+               
+    }
+    
+    static void option1() {
         //create an array list to storage the student.text data
         ArrayList<String> studentsTxtArray = new ArrayList<String>();
         
@@ -126,7 +132,6 @@ public class CA1 {
         catch (Exception e){
             System.out.println("Error criating a new File.");
         }
-               
     }
     
 }
