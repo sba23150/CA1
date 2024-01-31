@@ -15,7 +15,10 @@ import java.util.Scanner;
 
 /**
  *
+ * GitHub Repo: https://github.com/sba23150/CA1.git
+ * 
  * @author Tatiana
+ * 
  */
 public class CA1 {
 
@@ -161,25 +164,60 @@ public class CA1 {
         BufferedReader myBufReader = new BufferedReader (new InputStreamReader(System.in));
         try{
             int numberStudents = Integer.parseInt(myBufReader.readLine());
+            
+            //initializing arrays for first name,second name, number of classes and student number
             String[] firstName = new String[numberStudents];
             String[] secondName = new String[numberStudents];
-            int[] nClasses = new int[numberStudents];
+            String[] workload = new String[numberStudents];
             String[] studentNumber = new String[numberStudents];
             
-            //read all the console data first
+            //read, validate and insert to the new file the console input data 
             for(int i=0;i<numberStudents;i++){
                 //Read and validate First Name
                 System.out.println("Please type first name");
                 String fName = myBufReader.readLine();
-                while(!firstName[i].matches("^[a-zA-Z]+$")){
-                    System.out.println("First Name must be letters only.Please type first name");
+                while(!fName.matches("^[a-zA-Z]+$")){
+                    System.out.println("First Name must be letters only. Please type first name");
+                    fName = myBufReader.readLine();
                 }
-                firstName[i] = myBufReader.readLine();
+                //firstName[i] = myBufReader.readLine();
                 
+                //Read and validate Second Name
                 System.out.println("Please type second name");
-                secondName[i] = myBufReader.readLine();
+                String secName = myBufReader.readLine();
+                while(!secName.matches("^[a-zA-Z0-9]+$")){
+                    System.out.println("Second Name must be letters and/or numbers only. Something went wrong with the name in the line "+ (i+1));
+                    secName = myBufReader.readLine();
+                }
+                //secondName[i] = myBufReader.readLine();
+                
+                //Read and validate Number of Classes
                 System.out.println("Please type number of classes");
-                nClasses[i] = Integer.parseInt(myBufReader.readLine());
+                int numberClasses = Integer.parseInt(myBufReader.readLine());
+                //define workload: 
+                //nClasses = 1 = Very Light; nClasses = 2 = Light; nClasses = 3,4,5 = Part Time; nClasses >=6 = Full Time;
+                while(numberClasses<1 || numberClasses>8){
+                    System.out.println("The number of classes must be an integer value between 1 and 8 (inclusive)");
+                    numberClasses = Integer.parseInt(myBufReader.readLine());
+                }
+                    if(numberClasses==1){
+                        workload[i]= "Very Light";
+                        
+                    } else if (numberClasses==2){
+                        workload[i]= "Light";
+                        
+                    } else if (numberClasses==3 || numberClasses==4 || numberClasses==5){
+                        workload[i]= "Part Time";
+                        
+                    } else if (numberClasses==6 || numberClasses==7 || numberClasses==8){
+                        workload[i]= "Full Time";
+                        
+                    } else {
+                        System.out.println("Wrong number of classes.");
+                    }
+                  
+                
+                //Read and validate Student number
                 System.out.println("Please type student number");
                 studentNumber[i] = myBufReader.readLine();
             }
