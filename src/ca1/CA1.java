@@ -17,7 +17,7 @@ import java.util.Scanner;
  *
  * GitHub Repo: https://github.com/sba23150/CA1.git
  * 
- * @author Tatiana
+ * @author Tatiana Mota - sba23150
  * 
  */
 public class CA1 {
@@ -159,10 +159,10 @@ public class CA1 {
     
     public static void option2() {
         System.out.println("Option 2.");
-        //ask how many student to know the size of the data
-        System.out.println("Please type how many students info you will input");
         BufferedReader myBufReader = new BufferedReader (new InputStreamReader(System.in));
         try{
+            //ask how many student to know the size of the data
+            System.out.println("Please type how many students info you will input");
             int numberStudents = Integer.parseInt(myBufReader.readLine());
             
             //initializing arrays for first name,second name, number of classes and student number
@@ -222,9 +222,25 @@ public class CA1 {
                     System.out.println("The student“number” must be a minimum of 6 characters with the first 2 characters being numbers, the 3rd and 4thcharacters (and possibly 5th) being a letter, and everything after the last letter character being a number. Please provide student number again.");
                     studentNumber[i] = myBufReader.readLine();
                 }
-                
-                //insert to the new file 
-            
+            }
+            for(int i=0;i<numberStudents;i++){
+                //If the data is valid, then you have to output the data to a file name status.txt,in the following format:
+                // Student number - Second Name
+                //Wordload
+                try {
+                    BufferedWriter bw = new BufferedWriter (new FileWriter("statusConsole.txt",true));
+                    for (i=0;i<numberStudents;i++){
+                        bw.write(studentNumber[i]+" - "+secondName[i]);
+                        bw.newLine();
+                        bw.write(workload[i]);
+                        bw.newLine();
+                    }
+                    bw.close(); // Close the BufferedWriter after writing all data
+                    System.out.println("Data written to status.txt successfully.");    
+                }
+                catch (Exception e){
+                    System.out.println("Error criating a new File.");
+                }
             }
             
             
