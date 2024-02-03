@@ -131,12 +131,13 @@ public class CA1 {
         for (int i=2;i<studentsTxtArraySize;i=i+3){
             String studentNo = studentsTxtArray.get(i);
 
-            if(studentNoValid(studentNo)){
+            if(studentNo.matches("^\\d{2}[a-zA-Z]{2}\\w\\d+$")){
                 studentNoArray.add(studentNo);
             } else{
                 System.out.println("The student“number” must be a minimum of 6 characters with the first 2 characters being numbers, the 3rd and 4thcharacters (and possibly 5th) being a letter, and everything after the last letter character being a number. Something went wrong in the line "+ (i+1));
             }
         }
+
         
         //If the data is valid, then you have to output the data to a file name status.txt,in the following format:
         // Student number - Second Name
@@ -218,7 +219,7 @@ public class CA1 {
                 //Read and validate Student number - The student“number” must be a minimum of 6 characters with the first 2 characters being numbers, the 3rd and 4thcharacters (and possibly 5th) being a letter, and everything after the last letter character being a number.
                 System.out.println("Please type student number");
                 studentNumber[i] = myBufReader.readLine();
-                while(!studentNumber[i].matches("^\\d{2}[a-zA-Z]{1,2}\\d+$")){
+                while(!studentNumber[i].matches("^\\d{2}[a-zA-Z]{2}\\w\\d+$")){
                     System.out.println("The student“number” must be a minimum of 6 characters with the first 2 characters being numbers, the 3rd and 4thcharacters (and possibly 5th) being a letter, and everything after the last letter character being a number. Please provide student number again.");
                     studentNumber[i] = myBufReader.readLine();
                 }
@@ -228,7 +229,7 @@ public class CA1 {
                 // Student number - Second Name
                 //Wordload
                 try {
-                    BufferedWriter bw = new BufferedWriter (new FileWriter("statusConsole.txt",true));
+                    BufferedWriter bw = new BufferedWriter (new FileWriter("status.txt",true));
                     for (i=0;i<numberStudents;i++){
                         bw.write(studentNumber[i]+" - "+secondName[i]);
                         bw.newLine();
@@ -250,6 +251,7 @@ public class CA1 {
         }
     }
     
+    /*Attempt to create a method to validate student number as per task 1 and 2 for distinction work
     public static boolean studentNoValid(String studentNo){
         //check if the student number is at least 6 chars long
         if (studentNo.length()<6){
@@ -279,10 +281,10 @@ public class CA1 {
             }
         }
         
-        // Extract the number part after the letters
-        String numberPart = studentNo.substring(2);
+        // Extract the number part after the letters from index 5
+        String numberPart = studentNo.substring(studentNo.length()-5);
         if (studentNo.length() > 5) {
-            numberPart = studentNo.substring(4);
+            numberPart = studentNo.substring(4,studentNo.length()-1);
         }
 
         // Check if the number part is within the range 1-200
@@ -292,5 +294,5 @@ public class CA1 {
         }
 
         return true;
-    }
+    }*/
 }
