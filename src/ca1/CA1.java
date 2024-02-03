@@ -131,7 +131,7 @@ public class CA1 {
         for (int i=2;i<studentsTxtArraySize;i=i+3){
             String studentNo = studentsTxtArray.get(i);
 
-            if(studentNo.matches("^\\d{2}[a-zA-Z]{1,2}\\d+$")){
+            if(studentNoValid(studentNo)){
                 studentNoArray.add(studentNo);
             } else{
                 System.out.println("The student“number” must be a minimum of 6 characters with the first 2 characters being numbers, the 3rd and 4thcharacters (and possibly 5th) being a letter, and everything after the last letter character being a number. Something went wrong in the line "+ (i+1));
@@ -248,5 +248,49 @@ public class CA1 {
         } catch (Exception e){
             System.out.println("Something went wrong.");
         }
+    }
+    
+    public static boolean studentNoValid(String studentNo){
+        //check if the student number is at least 6 chars long
+        if (studentNo.length()<6){
+            return false;
+        }
+        
+        //check if the first two chars are numbers 
+        if (!Character.isDigit(studentNo.charAt(0)) || !Character.isDigit(studentNo.charAt(1))){
+            return false;
+        }
+        
+        //check if the first two chars are <20
+        int year = Integer.parseInt(studentNo.substring(0,2));
+        if (year<20){
+            return false;
+        }
+        
+        //check that 3rd and 4th chars are letters
+        if (!Character.isLetter(studentNo.charAt(2)) || !Character.isDigit(studentNo.charAt(3))){
+            return false;
+        }
+        
+        // Check if from the 6th number (index 5) is only numbers
+        for (int i=5;i<studentNo.length();i++){
+            if (!Character.isDigit(studentNo.charAt(i))){
+            return false;
+            }
+        }
+        
+        // Extract the number part after the letters
+        String numberPart = studentNo.substring(2);
+        if (studentNo.length() > 5) {
+            numberPart = studentNo.substring(4);
+        }
+
+        // Check if the number part is within the range 1-200
+        int number = Integer.parseInt(numberPart);
+        if (number < 1 || number > 200) {
+            return false;
+        }
+
+        return true;
     }
 }
